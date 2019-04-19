@@ -1,0 +1,35 @@
+1)Put installer  folder in views/ 
+
+2)Put header.blade.php in views/layouts/ 
+
+3)Put installerController.php file in app/http/controller/
+
+4)Put installer.css in public/css
+
+5)Update index method in admin/dashboardcontroller.php to check daily domain and key
+
+6)Put licensce.txt in  database/factories/
+
+7)Replace VerifyAppIsNotInstalled.php in app/http/middleware/ from existing files
+
+8)Add some routes in Routes/web.php
+9)replace app.blade.php from resources/views/layouts
+10)replace login.blade.php from resources/views/layouts
+11)replace register.blade.php from resources/views/layouts
+12) replace index method of Homecontroller.php from app/http/controller/  
+
+    public function index()
+    {
+        if (Auth::check()) {
+            return redirect('/dashboard');
+        }
+        if(getOption('front_page')==null || getOption('front_page') == 'login')
+        {
+                return view('auth.login');
+        }
+        
+        $packages = Package::where(['status' => 'ACTIVE'])->orderBy('service_id')->get();
+        return view('index', compact('packages'));
+    }
+
+  
